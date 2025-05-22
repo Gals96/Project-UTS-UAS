@@ -41,11 +41,11 @@ if (isset($_POST['login'])) {
     <form method="POST">
       <div class="mb-3">
         <label>Username</label>
-        <input type="text" name="username" class="form-control" required>
+        <input type="text" name="username" placeholder="Masukkan username" class="form-control italic-placeholder" required>
       </div>
       <div class="mb-3">
         <label>Password</label>
-        <input type="password" name="password" class="form-control" required>
+        <input type="password" name="password" placeholder="Masukkan password" class="form-control italic-placeholder" required>
       </div>
       <button type="submit" name="login" class="btn btn-success">LOG IN</button>
       <p class="text-center mt-2 mb-2"><a href="resetpw.php">Lupa Password</a></p>
