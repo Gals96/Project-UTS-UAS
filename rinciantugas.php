@@ -154,5 +154,69 @@ if (isset($_POST['selesai'])) {
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Script Logout -->
+  <script>
+    function logout() {
+      Swal.fire({
+        title: "Yakin ingin keluar?",
+        icon: "warning",
+        showCancelButton: true,
+        cancelButtonText: "Batal",
+        confirmButtonColor: "#198754",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yakin"
+      }).then((result) => {
+        if (result.isConfirmed) {
+            window.location = 'logout.php';
+        }
+      }); 
+    }
+  </script>
+
+  <!-- Script Hapus Tugas -->
+  <script>
+    function hapus(id_tugas) {
+      Swal.fire({
+        title: "Yakin ingin menghapus tugas?",
+        icon: "warning",
+        showCancelButton: true,
+        cancelButtonText: "Batal",
+        confirmButtonColor: "#198754",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yakin"
+      }).then((result) => {
+        if (result.isConfirmed) {
+            window.location = 'hapus.php?id_tugas=' + id_tugas;
+        }
+      }); 
+    }
+  </script>
+
+  
+  <script>
+    function selesai() {
+      event.preventDefault();
+      Swal.fire({
+        title: "Yakin ingin menandai tugas ini sebagai selesai?",
+        text: "Tugas yang sudah selesai tidak dapat diubah kembali",
+        icon: "question",
+        showCancelButton: true,
+        cancelButtonText: "Batal",
+        confirmButtonColor: "#198754",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Tandai Selesai"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const form = document.createElement('form');
+          form.method = 'POST';
+          form.innerHTML = '<input type="hidden" name="selesai" value="1">';
+          document.body.appendChild(form);
+          form.submit();
+        }
+      });
+    }
+  </script>
 </body>
 </html>
