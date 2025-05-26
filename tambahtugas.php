@@ -102,11 +102,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
       <div class="mb-3">
         <label for="judul" style="font-weight: 600">Nama Tugas <span class="text-danger">*</span></label>
-        <input type="text" name="judul" id="judul" class="form-control" required>
+        <input type="text" name="judul" id="judul" placeholder="Masukkan nama tugas" class="form-control" required>
       </div>
       <div class="mb-3">
         <label for="deskripsi" style="font-weight: 600">Deskripsi</label>
-        <textarea name="deskripsi" id="deskripsi" class="form-control" rows="4"></textarea>
+        <textarea name="deskripsi" id="deskripsi" placeholder="Masukkan deskripsi tugas" class="form-control" rows="4"></textarea>
       </div>
       <div class="mb-3">
         <label for="tenggat_waktu" style="font-weight: 600">Deadline Tugas <span class="text-danger">*</span></label>
