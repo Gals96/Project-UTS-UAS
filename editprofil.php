@@ -7,6 +7,7 @@ if (!isset($_SESSION['username'])) {
   exit;
 }
 
+$edit_profil = "";
 $field = $_GET['field'] ?? '';
 $username = $_SESSION['username'];
 
@@ -18,21 +19,24 @@ $user = mysqli_fetch_assoc($query);
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $new_value = mysqli_real_escape_string($conn, $_POST['new_value']);
 
-  switch ($field) {
-    case 'username':
-      mysqli_query($conn, "UPDATE user SET username = '$new_value' WHERE username = '$username'");
-      $_SESSION['username'] = $new_value;
-      break;
-    case 'email':
-      mysqli_query($conn, "UPDATE user SET email = '$new_value' WHERE username = '$username'");
-      break;
-    case 'password':
-      mysqli_query($conn, "UPDATE user SET password = '$new_value' WHERE username = '$username'");
-      break;
+  $update_query = "";
+  if ($field == 'username') {
+    $update_query = "UPDATE user SET username = '$new_value' WHERE username = '$username'";
+  } elseif ($field == 'email') {
+    $update_query = "UPDATE user SET email = '$new_value' WHERE username = '$username'";
+  } elseif ($field == 'password') {
+    $update_query = "UPDATE user SET password = '$new_value' WHERE username = '$username'";
   }
 
-  echo "<script>alert('Data berhasil diubah!'); window.location='profil.php';</script>";
-  exit;
+  if (mysqli_query($conn, $update_query)) {
+    if ($field == 'username') {
+      $_SESSION['username'] = $new_value;
+    }
+    $edit_profil = "success";
+    echo "<meta http-equiv='refresh' content='2; url=profil.php'>";
+  } else {
+    $edit_profil = "error";
+  }
 }
 ?>
 
@@ -51,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <form method="post">
           <div class="mb-3">
             <label style="font-weight: 600"><?= ucfirst($field) ?> Baru</label>
-            <input type="<?= $field === 'password' ? 'password' : 'text' ?>" name="new_value" placeholder="Masukkan username baru Anda" class="form-control" value="<?= htmlspecialchars($user[$field]) ?>" required>
+            <input type="<?= $field === 'password' ? 'password' : 'text' ?>" name="new_value" class="form-control" value="<?= htmlspecialchars($user[$field]) ?>" required>
           </div>
           <button type="submit" class="btn btn-primary">Simpan</button>
           <a href="profil.php" class="btn btn-secondary">Batal</a>
@@ -59,5 +63,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       </div>
     </div>
   </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    const editProfil = "<?php echo $edit_profil; ?>";
+
+    if (editProfil === "success") {
+      Swal.fire({
+        icon: 'success',
+        title: 'Data berhasil diubah',
+        text: 'Mengalihkan ke profil...',
+        showConfirmButton: false,
+        timer: 2000
+      });
+    } else if (editProfil === "error") {
+      Swal.fire({
+        icon: 'error',
+        title: 'Data gagal diubah',
+        confirmButtonColor: "#d33"
+      });
+    }
+  </script>
 </body>
 </html>

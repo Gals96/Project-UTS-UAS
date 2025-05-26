@@ -2,7 +2,7 @@
 session_start();
 include 'db.php';
 
-// Proses login
+$login_status = "";
 if (isset($_POST['login'])) {
   $username = $_POST['username'];
   $password = $_POST['password'];
@@ -16,10 +16,10 @@ if (isset($_POST['login'])) {
     $_SESSION['username'] = $user['username'];
     $_SESSION['nama'] = $user['nama'];
 
-    echo "<div class='alert alert-success mt-3'>Login berhasil! Mengalihkan...</div>";
+    $login_status = "success";
     echo "<meta http-equiv='refresh' content='2; url=index.php'>";
   } else {
-    echo "<div class='alert alert-danger mt-3'>Username atau password salah!</div>";
+    $login_status = "error";
   }
 }
 ?>
@@ -36,16 +36,16 @@ if (isset($_POST['login'])) {
 </head>
 <body>
 
-  <div class="form-container">
+  <div class="form-container" style="border: 2px solid #f0f0f0">
     <h3 class="text-center mb-4">Login</h3>
     <form method="POST">
       <div class="mb-3">
         <label>Username</label>
-        <input type="text" name="username" placeholder="Masukkan username" class="form-control italic-placeholder" required>
+        <input type="text" name="username" placeholder="Masukkan username" class="form-control" required>
       </div>
       <div class="mb-3">
         <label>Password</label>
-        <input type="password" name="password" placeholder="Masukkan password" class="form-control italic-placeholder" required>
+        <input type="password" name="password" placeholder="Masukkan password" class="form-control" required>
       </div>
       <button type="submit" name="login" class="btn btn-success">LOG IN</button>
       <p class="text-center mt-2 mb-2"><a href="resetpw.php">Lupa Password</a></p>
@@ -54,6 +54,26 @@ if (isset($_POST['login'])) {
     
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    const loginStatus = "<?php echo $login_status; ?>";
+
+    if (loginStatus === "success") {
+      Swal.fire({
+        icon: 'success',
+        title: 'Login Berhasil!',
+        text: 'Mengalihkan ke dashboard...',
+        showConfirmButton: false,
+        timer: 2000
+      });
+    } else if (loginStatus === "error") {
+        Swal.fire({
+        icon: 'error',
+        title: 'Login Gagal!',
+        text: 'Username atau password salah!',
+        confirmButtonColor: "#d33"
+      });
+    }
+  </script>
 </body>
 </html>

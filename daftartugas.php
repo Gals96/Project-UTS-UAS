@@ -8,7 +8,7 @@ if (!isset($_SESSION['username'])) {
   exit;
 }
 $id_user = $_SESSION['id_user'];
-$result = mysqli_query($conn, "SELECT * FROM tugas WHERE id_user = $id_user ORDER BY tenggat_waktu ASC LIMIT 2");
+$result = mysqli_query($conn, "SELECT * FROM tugas WHERE id_user = $id_user ORDER BY tenggat_waktu ASC");
 $tugas = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
 ?>
@@ -60,7 +60,7 @@ $tugas = mysqli_fetch_all($result, MYSQLI_ASSOC);
         <a class="nav-link text-white" href="profil.php"><i class="bi bi-person-circle me-2"></i>Profil</a>
       </li>
       <li class="nav-item mt-3 border-top pt-3">
-          <a class="nav-link text-white" href="logout.php" onclick="return confirm('Yakin ingin logout?')">
+          <a class="nav-link text-white" href="#" onclick="logout(); return false;">
           <i class="bi bi-box-arrow-right me-2"></i>Logout</a>
       </li>
     </ul>
@@ -95,9 +95,9 @@ $tugas = mysqli_fetch_all($result, MYSQLI_ASSOC);
               </div>
             </div>
             <a href="edittugas.php?id_tugas=<?= $tugas['id_tugas'] ?>" class="btn btn-outline-danger">Edit Tugas</a>
-            <a href="hapus.php?id_tugas=<?= $tugas['id_tugas'] ?>" class="btn btn-outline-danger" onclick="return confirm('Yakin ingin menghapus?')">Hapus</a>
+            <a href="#" class="btn btn-outline-danger" onclick="hapus(<?= $tugas['id_tugas'] ?>); return false;">Hapus</a>
             <?php if ($tugas['status'] === 'Selesai'): ?>
-              <span class="btn disable" style="color: green"><b>Selesai</b></span>
+              <span class="btn disable" style="color: #198754"><b>Selesai</b></span>
             <?php endif; ?>
           </div>
         </div>
@@ -108,6 +108,54 @@ $tugas = mysqli_fetch_all($result, MYSQLI_ASSOC);
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script>
+    // Script Pencarian
+    document.getElementById('searchInput').addEventListener('keyup', function () {
+      var input = this.value.toLowerCase();
+      var tugasItems = document.querySelectorAll('.tugas-item');
+
+      tugasItems.forEach(function (item) {
+        var text = item.textContent.toLowerCase();
+        item.style.display = text.includes(input) ? '' : 'none';
+      });
+    });
+
+    // Script Logout
+    function logout() {
+      Swal.fire({
+        title: "Yakin ingin keluar?",
+        icon: "warning",
+        showCancelButton: true,
+        cancelButtonText: "Batal",
+        confirmButtonColor: "#198754",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yakin"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location = 'logout.php';
+        }
+      }); 
+    }
+
+    // Script Hapus Tugas
+    function hapus(id_tugas) {
+      Swal.fire({
+        title: "Yakin ingin menghapus tugas?",
+        icon: "warning",
+        showCancelButton: true,
+        cancelButtonText: "Batal",
+        confirmButtonColor: "#198754",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yakin"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location = 'hapus.php?id_tugas=' + id_tugas;
+        }
+      }); 
+    }
+  </script>
 </body>
 </html>
