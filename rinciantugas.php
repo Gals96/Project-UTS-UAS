@@ -88,7 +88,7 @@ if (isset($_POST['selesai'])) {
           <a class="nav-link text-white" href="profil.php"><i class="bi bi-person-circle me-2"></i>Profil</a>
         </li>
         <li class="nav-item mt-3 border-top pt-3">
-          <a class="nav-link text-white" href="logout.php" onclick="return confirm('Yakin ingin logout?')">
+          <a class="nav-link text-white" href="#" onclick="logout(); return false;">
           <i class="bi bi-box-arrow-right me-2"></i>Logout</a>
         </li>
       </ul>
@@ -140,13 +140,11 @@ if (isset($_POST['selesai'])) {
     <div class="mt-4 d-flex justify-content-between align-items-center">
       <div>
         <a href="edittugas.php?id_tugas=<?= $id_tugas ?>" class="btn btn-danger me-2 mb-2">Edit Tugas</a>
-        <a href="hapus.php?id_tugas=<?= $id_tugas ?>" class="btn btn-danger me-2 mb-2" onclick="return confirm('Yakin ingin menghapus?')">Hapus</a>
+        <a href="#" class="btn btn-danger me-2 mb-2" onclick="hapus(<?= $id_tugas?>); return false;">Hapus</a>
         <?php if ($tugas['status'] === 'Selesai'): ?>
           <span style="color: green; font-size: 15px; margin-left: 10px"><b>Tugas sudah selesai</b></span>
         <?php else: ?>
-          <form method="POST" style="display:inline;" onsubmit="return confirm('Yakin ingin menandai tugas ini sebagai selesai?');">
-            <button name="selesai" type="submit" class="btn btn-dark mb-2"><b>Tandai Selesai</b></button>
-          </form>
+          <button onclick="selesai()" class="btn btn-dark mb-2"><b>Tandai Selesai</b></button>
         <?php endif; ?>
       </div>
       <span class="deadline">Deadline <?= formatTanggalIndo($tugas['tenggat_waktu']) ?></span>
@@ -169,14 +167,14 @@ if (isset($_POST['selesai'])) {
         confirmButtonText: "Yakin"
       }).then((result) => {
         if (result.isConfirmed) {
-            window.location = 'logout.php';
+          window.location = 'logout.php';
         }
       }); 
     }
   </script>
 
-  <!-- Script Hapus Tugas -->
   <script>
+    // Script Hapus Tugas
     function hapus(id_tugas) {
       Swal.fire({
         title: "Yakin ingin menghapus tugas?",
@@ -188,14 +186,12 @@ if (isset($_POST['selesai'])) {
         confirmButtonText: "Yakin"
       }).then((result) => {
         if (result.isConfirmed) {
-            window.location = 'hapus.php?id_tugas=' + id_tugas;
+          window.location = 'hapus.php?id_tugas=' + id_tugas;
         }
       }); 
     }
-  </script>
 
-  
-  <script>
+    // Script Tandai Selesai
     function selesai() {
       event.preventDefault();
       Swal.fire({
@@ -216,7 +212,7 @@ if (isset($_POST['selesai'])) {
           form.submit();
         }
       });
-    }
+  }
   </script>
 </body>
 </html>

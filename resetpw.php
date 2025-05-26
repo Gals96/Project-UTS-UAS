@@ -1,9 +1,8 @@
 <?php
 include 'db.php';
-$username = '';
+
 $show_reset_form = false;
-$success = '';
-$error = '';
+$reset_pw = "";
 
 // Tahap 1: Cek jika form cari username dikirim
 if (isset($_POST['cari'])) {
@@ -14,7 +13,7 @@ if (isset($_POST['cari'])) {
     if ($user) {
         $show_reset_form = true; // Tampilkan form ganti password
     } else {
-        $error = "Username tidak ditemukan.";
+        $reset_pw = "username";
     }
 }
 
@@ -27,9 +26,9 @@ if (isset($_POST['reset'])) {
     $query = mysqli_query($conn, "UPDATE user SET password='$new_password' WHERE username='$username'");
 
     if ($query) {
-        $success = "Password berhasil diubah. <a href='login.php'>Login sekarang</a>.";
+        $reset_pw = "success";
     } else {
-        $error = "Gagal mengubah password.";
+        $reset_pw = "error";
     }
 }
 ?>
@@ -50,7 +49,7 @@ if (isset($_POST['reset'])) {
       <form method="POST">
         <div class="mb-3">
           <label>Masukkan Username Anda</label>
-          <input type="text" name="username" placeholder="Masukkan username" class="form-control italic-placeholder" required>
+          <input type="text" name="username" placeholder="Masukkan username" class="form-control" required>
         </div>
         <button type="submit" name="cari" class="btn btn-primary">Cari Akun</button>
       </form>
@@ -62,19 +61,41 @@ if (isset($_POST['reset'])) {
         <input type="hidden" name="username" value="<?= htmlspecialchars($username) ?>">
         <div class="mb-3">
           <label>Password Baru</label>
-          <input type="password" name="new_password" placeholder="Masukkan Password Baru" class="form-control italic-placeholder" required>
+          <input type="password" name="new_password" placeholder="Masukkan password baru" class="form-control" required>
         </div>
         <button type="submit" name="reset" class="btn btn-success">Reset Password</button>
       </form>
     <?php endif; ?>
 
-    <!-- Notifikasi -->
-    <?php if (!empty($success)): ?>
-      <div class="alert alert-success mt-3"><?= $success ?></div>
-    <?php endif; ?>
-    <?php if (!empty($error)): ?>
-      <div class="alert alert-danger mt-3"><?= $error ?></div>
-    <?php endif; ?>
-  </div>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    const resetPw = "<?php echo $reset_pw; ?>";
+
+    if (resetPw === "success") {
+      Swal.fire({
+        icon: 'success',
+        title: 'Password berhasil diubah',
+        text: 'Silakan login kembali.',
+        confirmButtonText: 'Login Sekarang',
+        confirmButtonColor: '#198754'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = 'login.php';
+        }
+      });
+    } else if (resetPw === "error") {
+      Swal.fire({
+        icon: 'error',
+        title: 'Password gagal diubah',
+        confirmButtonColor: "#d33"
+      });
+    } else if (resetPw === "username") {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Username tidak ditemukan',
+        confirmButtonColor: "#d33"
+      });
+    }
+  </script>
 </body>
 </html>

@@ -53,15 +53,15 @@ $user = mysqli_fetch_assoc($query);
           <a class="nav-link text-white" href="profil.php"><i class="bi bi-person-circle me-2"></i>Profil</a>
         </li>
         <li class="nav-item mt-3 border-top pt-3">
-          <a class="nav-link text-white" href="logout.php" onclick="return confirm('Yakin ingin logout?')">
+          <a class="nav-link text-white" href="#" onclick="logout(); return false;">
           <i class="bi bi-box-arrow-right me-2"></i>Logout</a>
         </li>
       </ul>
     </div>
   </div>
 
-  <div class="container d-flex justify-content-center">
-    <div class="profile-box">
+  <div class="container d-flex justify-content-center" >
+    <div class="profile-box" style="border: 2px solid #f0f0f0">
       <div class="d-flex align-items-center mb-3">
         <img src="Pengguna.jpeg" alt="Profile" class="profile-img me-3" />
         <div>
@@ -72,7 +72,7 @@ $user = mysqli_fetch_assoc($query);
       <h6 class="mb-3">Tentang Saya</h6>
 
       <!-- Username -->
-      <div class="profile-info-row">
+      <div class="profile-info-row" >
         <div class="d-flex align-items-center">
           <div class="icon-box me-2"><i class="bi bi-person"></i></div>
           <div>
@@ -115,6 +115,8 @@ $user = mysqli_fetch_assoc($query);
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   <script>
     document.getElementById('togglePassword').addEventListener('click', function () {
       const passwordInput = document.getElementById('password');
@@ -123,6 +125,25 @@ $user = mysqli_fetch_assoc($query);
       this.classList.toggle('bi-eye');
       this.classList.toggle('bi-eye-slash');
     });
+  </script>
+
+  <!-- Script Logout -->
+  <script>
+    function logout() {
+      Swal.fire({
+        title: "Yakin ingin keluar?",
+        icon: "warning",
+        showCancelButton: true,
+        cancelButtonText: "Batal",
+        confirmButtonColor: "#198754",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yakin"
+      }).then((result) => {
+        if (result.isConfirmed) {
+            window.location = 'logout.php';
+        }
+      }); 
+    }
   </script>
 </body>
 </html>

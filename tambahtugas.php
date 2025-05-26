@@ -7,12 +7,7 @@ if (!isset($_SESSION['username'])) {
   exit;
 }
 
-// Variable untuk menyimpan pesan
-$success_message = "";
-$error_message = "";
-
-
-// Proses saat tombol submit ditekan
+$status_tugas = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $judul = mysqli_real_escape_string($conn, $_POST['judul']);
     $deskripsi = mysqli_real_escape_string($conn, $_POST['deskripsi']);
@@ -24,13 +19,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                   VALUES ('$judul', '$deskripsi', '$tenggat_waktu', '$id_user')";
 
         if (mysqli_query($conn, $query)) {
-            $success_message = "✅ Tugas berhasil ditambahkan.";
+            $status_tugas = "success";
             header("refresh:2;url=daftartugas.php");
         } else {
-            $error_message = "❌ Gagal menambahkan tugas: " . mysqli_error($conn);
+            $status_tugas = "error";
         }
     } else {
-        $error_message = "❗ Judul dan tenggat waktu harus diisi.";
+        $status_tugas = "error";
     }
 }
 ?>
@@ -84,25 +79,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   </div>
 
   <!-- Form -->
-  <div class="form-container">
-    <h3 class="text-center mb-4">Tambah Tugas Baru</h3>
-    
-    <?php if(!empty($success_message)): ?>
-      <div class="alert alert-success">
-        <?php echo $success_message; ?>
-      </div>
-    <?php endif; ?>
-    
-    <?php if(!empty($error_message)): ?>
-      <div class="alert alert-danger">
-        <?php echo $error_message; ?>
-      </div>
-    <?php endif; ?>
-    
+  <div class="form-container" style="border: 2px solid #f0f0f0">
+    <h3 class="text-center mb-4">Tambah Tugas Baru</h3>    
     <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
       <div class="mb-3">
         <label for="judul" style="font-weight: 600">Nama Tugas <span class="text-danger">*</span></label>
-        <input type="text" name="judul" id="judul" placeholder="Masukkan nama tugas" class="form-control" required>
+        <input type="text" name="judul" id="judul" placeholder="Masukkan judul tugas" class="form-control" required>
       </div>
       <div class="mb-3">
         <label for="deskripsi" style="font-weight: 600">Deskripsi</label>
@@ -116,7 +98,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </form>
   </div>
 
-  <!-- Bootstrap JS -->
+  <!-- JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    const statusTugas = "<?php echo $status_tugas; ?>";
+
+    if (statusTugas === "success") {
+        Swal.fire({
+          icon: 'success',
+          title: 'Tugas berhasil ditambahkan',
+          text: 'Mengalihkan ke daftar tugas...',
+          showConfirmButton: false,
+          timer: 2000
+        });
+    } else if (statusTugas === "error") {
+        Swal.fire({
+          icon: 'error',
+          title: 'Tugas gagal ditambahkan',
+          confirmButtonColor: "#d33"
+        });
+    }
+  </script>
 </body>
 </html>
