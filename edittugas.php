@@ -86,11 +86,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <form method="POST" action="">
       <div class="mb-3">
         <label for="judul" style="font-weight: 600">Nama Tugas <span class="text-danger">*</span></label>
-        <input type="text" name="judul" id="judul" value="<?= htmlspecialchars($row['judul']) ?>" class="form-control" required>
+        <input type="text" name="judul" id="judul" value="<?= htmlspecialchars($row['judul']) ?>" placeholder="Masukkan tugas baru" class="form-control" required>
       </div>
       <div class="mb-3">
         <label for="deskripsi" style="font-weight: 600">Deskripsi</label>
-        <textarea name="deskripsi" id="deskripsi" class="form-control"><?= htmlspecialchars($row['deskripsi']) ?></textarea>
+        <textarea name="deskripsi" id="deskripsi" placeholder="Masukkan deskripsi tugas" class="form-control"><?= htmlspecialchars($row['deskripsi']) ?></textarea>
       </div>
       <div class="mb-3">
         <label for="tenggat_waktu" style="font-weight: 600">Deadline Tugas <span class="text-danger">*</span></label>
