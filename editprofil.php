@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <form method="post">
           <div class="mb-3">
             <label style="font-weight: 600"><?= ucfirst($field) ?> Baru</label>
-            <input type="<?= $field === 'password' ? 'password' : 'text' ?>" name="new_value" class="form-control" value="<?= htmlspecialchars($user[$field]) ?>" required>
+            <input type="<?= $field === 'password' ? 'password' : 'text' ?>" name="new_value" placeholder="Masukkan username baru Anda" class="form-control" value="<?= htmlspecialchars($user[$field]) ?>" required>
           </div>
           <button type="submit" class="btn btn-primary">Simpan</button>
           <a href="profil.php" class="btn btn-secondary">Batal</a>
