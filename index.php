@@ -39,7 +39,6 @@
       <input class="form-control me-2" type="search" placeholder="Cari tugas kamu" aria-label="Search" id="searchInput">
     </form>
     <div class="d-flex align-items-center ms-3">
-      <img src="Pengguna.jpeg" class="rounded-circle" width="40" height="40" alt="User">
       <span class="ms-2"><b>@<?= $_SESSION['username'] ?></b></span>
     </div>
   </nav>

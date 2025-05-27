@@ -28,7 +28,6 @@ $user = mysqli_fetch_assoc($query);
       <i class="bi bi-three-dots-vertical fs-4"></i>
     </button>
     <div class="d-flex align-items-center ms-3">
-      <img src="Pengguna.jpeg" class="rounded-circle" width="40" height="40" alt="User">
       <span class="ms-2"><b>@<?= $_SESSION['username'] ?></b></span>
     </div>
   </nav>
@@ -62,12 +61,9 @@ $user = mysqli_fetch_assoc($query);
 
   <div class="container d-flex justify-content-center" >
     <div class="profile-box" style="border: 2px solid #f0f0f0">
-      <div class="d-flex align-items-center mb-3">
-        <img src="Pengguna.jpeg" alt="Profile" class="profile-img me-3" />
-        <div>
-          <h5 class="mb-0"><?= htmlspecialchars($user['nama']) ?></h5>
-        </div>
-      </div>
+      <div class="mb-3">
+  <h5 class="mb-0"><?= htmlspecialchars($user['nama']) ?></h5>
+</div>
 
       <h6 class="mb-3">Tentang Saya</h6>
 
