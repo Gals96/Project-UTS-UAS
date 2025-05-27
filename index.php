@@ -92,7 +92,7 @@
         $url = "rinciantugas.php?id={$tugas['id_tugas']}&judul={$slug}";
       ?>
         <div class="col-md-6">
-          <div class="task-card">
+          <div class="task-card tugas-item">
             <div class="d-flex align-items-center mb-2">
               <img src="Icon.jpeg" alt="Icon" width="80" class="me-2">
               <div>
