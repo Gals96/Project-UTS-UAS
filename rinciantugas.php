@@ -63,7 +63,6 @@ if (isset($_POST['selesai'])) {
       <i class="bi bi-three-dots-vertical fs-4"></i>
     </button>
     <div class="d-flex align-items-center ms-3">
-      <img src="Pengguna.jpeg" class="rounded-circle" width="40" height="40" alt="User">
       <span class="ms-2"><b>@<?= $_SESSION['username'] ?></b></span>
     </div>
   </nav>
