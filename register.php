@@ -7,6 +7,7 @@ if (isset($_POST['register'])) {
   $email = $_POST['email'];
   $username = $_POST['username'];
   $password = $_POST['password'];
+  $hash = password_hash($password,  PASSWORD_DEFAULT);
 
   $check_query = mysqli_query($conn, "SELECT * FROM user WHERE username = '$username' OR email = '$email'");
   
@@ -14,7 +15,7 @@ if (isset($_POST['register'])) {
     $regis_status = "exists";
   } else {
     $insert = mysqli_query($conn, "INSERT INTO user (nama, email, username, password) 
-                                   VALUES ('$nama', '$email', '$username', '$password')");
+                                   VALUES ('$nama', '$email', '$username', '$hash')");
 
     if ($insert) {
       $regis_status = "success";
