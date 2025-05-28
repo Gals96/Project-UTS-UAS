@@ -9,8 +9,9 @@ if (isset($_POST['login'])) {
 
   $query = mysqli_query($conn, "SELECT * FROM user WHERE username='$username'");
   $user = mysqli_fetch_assoc($query);
+  $pw = $user['password'];
 
-  if ($user && $password === $user['password']) {
+  if ($user && password_verify($password,$pw)) {
     // Simpan data penting ke session
     $_SESSION['id_user'] = $user['id_user'];  // PENTING untuk foreign key
     $_SESSION['username'] = $user['username'];
