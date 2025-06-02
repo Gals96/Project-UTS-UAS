@@ -212,6 +212,26 @@ if (isset($_POST['selesai'])) {
         }
       });
   }
+//script konfirmasi hapus berkas
+function konfirmasiHapusBerkas() {
+  event.preventDefault(); // Mencegah submit langsung
+
+  Swal.fire({
+    title: 'Yakin ingin menghapus berkas yang dipilih?',
+    text: 'Berkas yang dihapus tidak dapat dikembalikan.',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#6c757d',
+    confirmButtonText: 'Ya, hapus',
+    cancelButtonText: 'Batal'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      document.getElementById('formHapusBerkas').submit();
+    }
+  });
+}
+    
   </script>
 </body>
 </html>
