@@ -59,7 +59,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <nav class="navbar navbar-expand-lg bg-light px-3 mb-4">
     <a class="navbar-brand" href="daftartugas.php"><i class="bi bi-arrow-left"></i> Kembali</a>
     <div class="ms-auto d-flex align-items-center">
-      <img src="Pengguna.jpeg" class="rounded-circle" width="40" height="40" alt="User">
       <span class="ms-2"><b>@<?= $_SESSION['username'] ?></b></span>
     </div>
   </nav>
