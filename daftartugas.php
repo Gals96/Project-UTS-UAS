@@ -73,13 +73,13 @@ $tugas = mysqli_fetch_all($result, MYSQLI_ASSOC);
     <a href="tambahtugas.php" class="btn btn-danger"><i class="bi bi-plus"></i> Tambah Tugas</a>
   </div>
 
-  <div class="row g-3 tugas-item">
+  <div class="row g-3">
     <?php if (!empty($tugas)): ?>
       <?php foreach ($tugas as $tugas): 
         $slug = slugify($tugas['judul']);
         $url = "rinciantugas.php?id={$tugas['id_tugas']}&judul={$slug}";
       ?>
-        <div class="col-md-6">
+        <div class="col-md-6 tugas-item">
           <div class="task-card">
             <div class="d-flex align-items-center mb-2">
               <img src="Icon.jpeg" alt="Icon" width="80" class="me-2">
