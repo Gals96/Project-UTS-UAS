@@ -25,7 +25,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   } elseif ($field == 'email') {
     $update_query = "UPDATE user SET email = '$new_value' WHERE username = '$username'";
   } elseif ($field == 'password') {
-    $update_query = "UPDATE user SET password = '$new_value' WHERE username = '$username'";
+    $hashed_password = password_hash($new_value, PASSWORD_DEFAULT);
+    $update_query = "UPDATE user SET password = '$hashed_password' WHERE username = '$username'";
   }
 
   if (mysqli_query($conn, $update_query)) {
