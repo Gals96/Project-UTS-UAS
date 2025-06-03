@@ -21,9 +21,10 @@ if (isset($_POST['cari'])) {
 if (isset($_POST['reset'])) {
     $username = $_POST['username'];
     $new_password = $_POST['new_password'];
+    $hash = password_hash($new_password, PASSWORD_DEFAULT);
 
     // Update password (tidak dienkripsi, untuk demo)
-    $query = mysqli_query($conn, "UPDATE user SET password='$new_password' WHERE username='$username'");
+    $query = mysqli_query($conn, "UPDATE user SET password='$hash' WHERE username='$username'");
 
     if ($query) {
         $reset_pw = "success";
