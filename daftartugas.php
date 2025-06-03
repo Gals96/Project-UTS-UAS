@@ -73,7 +73,7 @@ $tugas = mysqli_fetch_all($result, MYSQLI_ASSOC);
     <a href="tambahtugas.php" class="btn btn-danger"><i class="bi bi-plus"></i> Tambah Tugas</a>
   </div>
 
-  <div class="row g-3">
+  <div class="row g-3 tugas-item">
     <?php if (!empty($tugas)): ?>
       <?php foreach ($tugas as $tugas): 
         $slug = slugify($tugas['judul']);
