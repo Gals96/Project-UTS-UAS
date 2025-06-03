@@ -105,7 +105,7 @@ if (isset($_POST['selesai'])) {
       </div>
 
     <?php if (count($daftar_berkas) > 0): ?>
-      <form method="POST" onsubmit="return confirm('Yakin ingin menghapus berkas yang dipilih?');">
+      <form method="POST" onsubmit="hapusBerkas();">
         <?php foreach ($daftar_berkas as $b): ?>
           <div class="mb-2 p-2 border rounded d-flex align-items-center bg-light" style="max-width: 600px;">
               <input type="checkbox" name="berkas_terpilih[]" value="<?= $b['id_berkas'] ?>" class="form-check-input me-3">
