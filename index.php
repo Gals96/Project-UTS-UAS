@@ -91,7 +91,7 @@
         $slug = slugify($tugas['judul']);
         $url = "rinciantugas.php?id={$tugas['id_tugas']}&judul={$slug}";
       ?>
-        <div class="col-md-6">
+        <div class="col-md-6 tugas-item">
           <div class="task-card tugas-item">
             <div class="d-flex align-items-center mb-2">
               <img src="Icon.jpeg" alt="Icon" width="80" class="me-2">
